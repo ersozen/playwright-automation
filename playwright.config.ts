@@ -30,6 +30,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    testIdAttribute: 'data-test', //Burada testIdAttribute özelliğini 'data-test' olarak ayarlıyoruz. Bu, Playwright'ın testlerde elementleri seçmek için kullanacağı attribute adını belirler. Örneğin, bir elementi seçmek için page.getByTestId('login-button') kullanıldığında, Playwright bu elementi bulmak için data-test="login-button" attribute'unu arayacaktır.
   },
 
   /* Configure projects for major browsers */
