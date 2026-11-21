@@ -25,7 +25,7 @@ test("Sepetten ürün çıkartılması", async ({ page }) => {
     await addCartButton.click()
 
     await expect (backpackProduct.getByRole('button', { name :'Remove'})
-        ).toBeVisible;
+        ).toBeVisible();
 
     await expect (page.locator('.shopping_cart_badge')).toHaveText('1'); // Sepette bir ürün olduğunu gösterdik
 
