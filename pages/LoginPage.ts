@@ -1,22 +1,23 @@
 import{Page, Locator} from '@playwright/test';
+import { BasePage } from "./BasePage"; 
 
-export class LoginPage{
-
-    private readonly page: Page;
-    
+export class LoginPage extends BasePage{
+ 
     private readonly usernameInput: Locator; // Class dışından erişilemez ve ilk atamadan sonra değişkene yeni değer atanmasını engelleriz
     private readonly passwordInput: Locator;
     private readonly loginButton: Locator;
+    private readonly errorMessage: Locator;
 
     constructor(page: Page){ //Class'tan nesne oluşturulduğunda otomatik olarak çalışır
-        this.page= page;
+        super(page);
         this.usernameInput= page.getByPlaceholder("Username");
         this.passwordInput= page.getByPlaceholder("Password");
         this.loginButton= page.getByRole('button',{name:'Login'});
+        this.errorMessage = page.locator('[data-test="error"]');
     }
 
-    async navigate(): Promise<void> { //Asenkron işlemdir dönüş değeri yoktur.
-        await this.page.goto('https://www.saucedemo.com/');
+    async open(): Promise<void> { //Asenkron işlemdir dönüş değeri yoktur.
+        await this.navigate('https://www.saucedemo.com/');
     }
 
     async enterUsername(username: string): Promise<void> {
@@ -36,5 +37,9 @@ export class LoginPage{
         await this.enterUsername(username);
         await this.enterPassword(password);
         await this.clickLoginButton();
+    }
+
+    getErrorMessage(): Locator{
+        return this.errorMessage;
     }
 }
